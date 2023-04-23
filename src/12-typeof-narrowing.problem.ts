@@ -1,6 +1,14 @@
 import { expect, it } from "vitest";
 
-const coerceAmount = (amount: number | { amount: number }) => {};
+const coerceAmount = (amount: number | { amount: number }) => {
+  // Check that the amount is a number
+  if (typeof amount === "number") {
+    return amount;
+  }
+
+  // If the amount is not a number it's safe to pressume it's going to be an object as we've narrowed down the type above
+  return amount.amount;
+};
 
 it("Should return the amount when passed an object", () => {
   expect(coerceAmount({ amount: 20 })).toEqual(20);
